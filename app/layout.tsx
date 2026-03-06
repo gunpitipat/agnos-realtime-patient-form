@@ -1,4 +1,5 @@
 import { Anuphan } from 'next/font/google';
+import Navbar from '@/components/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
 
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={anuphan.variable}>{children}</body>
+      <body className={anuphan.variable}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

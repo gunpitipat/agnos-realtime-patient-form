@@ -19,4 +19,7 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
+  a {
+    @apply cursor-pointer no-underline;
+  }
 }
