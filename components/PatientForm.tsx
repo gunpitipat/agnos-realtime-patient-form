@@ -1,25 +1,54 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   PatientFormSchema,
   type PatientFormData,
 } from '@/schemas/patient-form.schema';
+import { createSession, updateSession } from '@/lib/patient-session';
 
 const PatientForm = () => {
   const {
     register,
     handleSubmit,
+    subscribe,
     formState: { errors, isSubmitting },
   } = useForm<PatientFormData>({
     resolver: zodResolver(PatientFormSchema),
   });
 
+  const sessionIdRef = useRef<string | null>(null);
+  const isCreatingRef = useRef(false);
+
   const onSubmit: SubmitHandler<PatientFormData> = (data) => {
     console.log(data);
     alert('Form submitted');
   };
+
+  useEffect(() => {
+    const unsubscribe = subscribe({
+      formState: {
+        values: true,
+      },
+      callback: async ({ values: formData }) => {
+        if (!sessionIdRef.current) {
+          if (isCreatingRef.current) return;
+
+          isCreatingRef.current = true;
+
+          const data = await createSession(formData);
+          sessionIdRef.current = data.id;
+          return;
+        }
+
+        await updateSession(sessionIdRef.current, formData);
+      },
+    });
+
+    return () => unsubscribe();
+  }, [subscribe]);
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
