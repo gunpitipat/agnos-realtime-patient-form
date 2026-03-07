@@ -4,6 +4,8 @@
   --background: rgb(255, 255, 255);
   --foreground: rgb(26, 32, 44);
   --primary: rgb(26, 89, 194);
+  --primary-hover: rgb(23, 80, 175);
+  --secondary: rgb(143, 182, 232);
   --border: rgb(226, 232, 240);
 }
 
@@ -11,6 +13,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
   --color-border: var(--border);
   --font-sans: var(--font-anuphan), sans-serif;
 }
@@ -20,6 +24,42 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
   a {
-    @apply cursor-pointer no-underline;
+    @apply cursor-pointer no-underline outline-none;
+  }
+  button {
+    @apply cursor-pointer outline-none;
+  }
+}
+
+@layer components {
+  .form {
+    @apply flex w-full max-w-lg flex-col gap-4 px-6 pb-14 lg:max-w-xl lg:gap-6 lg:px-8;
+  }
+  .form-field {
+    @apply flex flex-col gap-0.5;
+  }
+  .form-label {
+    @apply text-base font-medium lg:text-lg;
+  }
+  .form-input {
+    @apply shadow-border border-border focus:border-primary rounded-sm border px-2.5 py-1 text-base shadow-sm transition-colors duration-150 ease-out outline-none lg:text-lg;
+  }
+  .form-label-hint {
+    @apply text-foreground/75 ml-1.5 text-sm font-normal lg:text-base;
+  }
+  .form-error {
+    @apply text-sm text-red-500 lg:text-base;
+  }
+  .primary-btn {
+    @apply border-border bg-primary text-background hover:bg-primary-hover rounded-lg border py-2 text-base font-medium transition-colors duration-200 ease-in-out lg:text-lg;
+  }
+  .active-btn {
+    @apply bg-primary-hover cursor-not-allowed;
+  }
+}
+
+@layer utilities {
+  .heading {
+    @apply text-primary text-xl font-semibold lg:text-2xl;
   }
 }

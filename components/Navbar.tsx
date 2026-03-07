@@ -8,14 +8,14 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <header>
+    <header className="mb-6">
       <nav>
-        <ul className="flex items-center justify-center gap-8">
+        <ul className="flex items-center justify-center gap-4 lg:gap-6">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`${pathname === item.href ? 'border-border text-primary font-medium' : 'hover:text-primary border-transparent'} block border-b-2 px-4 py-2 transition-colors duration-200 ease-in-out`}
+                className={`${pathname === item.href ? 'border-border text-primary font-medium' : 'hover:text-primary border-transparent'} block border-b-2 px-3 py-2 whitespace-nowrap transition-colors duration-200 ease-in-out`}
               >
                 {item.label}
               </Link>
