@@ -76,7 +76,7 @@ const PatientForm = () => {
   return (
     // NOTE: React compiler false positive: ref access in built-in event handler (RHF pattern)
     // Fixed upstream: https://github.com/facebook/react/pull/35062
-    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form layout-container" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-field">
         <label htmlFor="firstName" className="form-label">
           First name

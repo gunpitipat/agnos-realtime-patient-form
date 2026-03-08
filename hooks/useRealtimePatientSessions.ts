@@ -8,6 +8,7 @@ import type { PatientSession } from '@/types/patient-session';
 
 export const useRealtimePatientSessions = () => {
   const [sessions, setSessions] = useState<PatientSession[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSessions = async () => {
@@ -16,6 +17,8 @@ export const useRealtimePatientSessions = () => {
         setSessions(data);
       } catch (err) {
         console.error('Failed to fetch patient sessions:', err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -64,5 +67,5 @@ export const useRealtimePatientSessions = () => {
     };
   }, []);
 
-  return { sessions };
+  return { sessions, isLoading };
 };

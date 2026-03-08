@@ -32,8 +32,11 @@
 }
 
 @layer components {
+  .layout-container {
+    @apply w-full max-w-lg px-6 lg:max-w-xl lg:px-8;
+  }
   .form {
-    @apply flex w-full max-w-lg flex-col gap-4 px-6 pb-14 lg:max-w-xl lg:gap-6 lg:px-8;
+    @apply flex flex-col gap-4 pb-14 lg:gap-6;
   }
   .form-field {
     @apply flex flex-col gap-0.5;
