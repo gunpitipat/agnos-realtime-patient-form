@@ -45,7 +45,7 @@ export const updateSession = async (
 export const submitSession = async (
   id: string,
   formData: Partial<PatientFormData>
-) => {
+): Promise<PatientSession> => {
   const now = new Date().toISOString();
 
   const { data, error } = await supabase
@@ -55,6 +55,23 @@ export const submitSession = async (
       status: 'submitted',
       last_active_at: now,
       submitted_at: now,
+    })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};
+
+export const markSessionInactive = async (
+  id: string
+): Promise<PatientSession> => {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .update({
+      status: 'inactive',
     })
     .eq('id', id)
     .select()

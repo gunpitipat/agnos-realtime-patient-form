@@ -8,6 +8,7 @@ import {
   PatientFormSchema,
   type PatientFormData,
 } from '@/schemas/patient-form.schema';
+import { useSessionInactivity } from '@/hooks/useSessionInactivity';
 import {
   createSession,
   updateSession,
@@ -29,6 +30,8 @@ const PatientForm = () => {
 
   const router = useRouter();
 
+  useSessionInactivity(sessionIdRef);
+
   const onSubmit: SubmitHandler<PatientFormData> = async (data) => {
     const sessionId = sessionIdRef.current;
     if (!sessionId) return;
@@ -49,17 +52,21 @@ const PatientForm = () => {
         values: true,
       },
       callback: async ({ values: formData }) => {
-        if (!sessionIdRef.current) {
-          if (isCreatingRef.current) return;
+        try {
+          if (!sessionIdRef.current) {
+            if (isCreatingRef.current) return;
 
-          isCreatingRef.current = true;
+            isCreatingRef.current = true;
 
-          const data = await createSession(formData);
-          sessionIdRef.current = data.id;
-          return;
+            const data = await createSession(formData);
+            sessionIdRef.current = data.id;
+            return;
+          }
+
+          await updateSession(sessionIdRef.current, formData);
+        } catch (err) {
+          console.error(err);
         }
-
-        await updateSession(sessionIdRef.current, formData);
       },
     });
 
