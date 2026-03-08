@@ -91,3 +91,17 @@ export const getPatientSessions = async (): Promise<PatientSession[]> => {
 
   return data;
 };
+
+export const getPatientSession = async (
+  id: string
+): Promise<PatientSession> => {
+  const { data, error } = await supabase
+    .from(PATIENT_SESSIONS_TABLE)
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};

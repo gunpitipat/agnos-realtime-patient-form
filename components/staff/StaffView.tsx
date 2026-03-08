@@ -14,6 +14,7 @@ const StaffView = () => {
       {sessions.map((session) => (
         <SessionRow
           key={session.id}
+          id={session.id}
           firstName={session.form_data.firstName}
           lastName={session.form_data.lastName}
           phoneNumber={session.form_data.phoneNumber}

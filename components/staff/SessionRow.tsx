@@ -1,8 +1,10 @@
+import Link from 'next/link';
 import { SESSION_STATUS_META } from '@/constants/session-status';
 import { formatTimeAgo } from '@/utils/formatTimeAgo';
 import type { PatientSessionStatus } from '@/types/patient-session';
 
 type SessionRowProps = {
+  id: string;
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
@@ -12,6 +14,7 @@ type SessionRowProps = {
 };
 
 const SessionRow = ({
+  id,
   firstName,
   lastName,
   phoneNumber,
@@ -32,7 +35,10 @@ const SessionRow = ({
       : formatTimeAgo(submittedAt ?? lastActiveAt); // submittedAt is null until submission
 
   return (
-    <div className="border-border w-full rounded-md border px-4 py-3">
+    <Link
+      href={`/staff-view/session/${id}`}
+      className="border-border hover:border-secondary shadow-border w-full rounded-md border px-4 py-3 shadow-sm transition-colors duration-150 ease-out"
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className={`${indicatorClass} size-3 rounded-full`} />
@@ -47,7 +53,7 @@ const SessionRow = ({
 
         <span className="max-w-30 truncate">{phoneNumber || '—'}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -2,7 +2,7 @@ import StaffView from '@/components/staff/StaffView';
 
 export default function Page() {
   return (
-    <main className="flex flex-col items-center gap-4">
+    <main className="page-container">
       <h1 className="heading">Staff View</h1>
       <StaffView />
     </main>

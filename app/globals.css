@@ -32,6 +32,9 @@
 }
 
 @layer components {
+  .page-container {
+    @apply flex flex-col items-center gap-4;
+  }
   .layout-container {
     @apply w-full max-w-lg px-6 lg:max-w-xl lg:px-8;
   }
