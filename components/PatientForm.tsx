@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +8,11 @@ import {
   PatientFormSchema,
   type PatientFormData,
 } from '@/schemas/patient-form.schema';
-import { createSession, updateSession } from '@/lib/patient-session';
+import {
+  createSession,
+  updateSession,
+  submitSession,
+} from '@/lib/patient-session';
 
 const PatientForm = () => {
   const {
@@ -22,9 +27,20 @@ const PatientForm = () => {
   const sessionIdRef = useRef<string | null>(null);
   const isCreatingRef = useRef(false);
 
-  const onSubmit: SubmitHandler<PatientFormData> = (data) => {
-    console.log(data);
-    alert('Form submitted');
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<PatientFormData> = async (data) => {
+    const sessionId = sessionIdRef.current;
+    if (!sessionId) return;
+
+    try {
+      await submitSession(sessionId, data);
+      alert('Form submitted');
+      router.push('/');
+    } catch (err) {
+      console.error(err);
+      alert('Submission has failed.');
+    }
   };
 
   useEffect(() => {
@@ -51,6 +67,8 @@ const PatientForm = () => {
   }, [subscribe]);
 
   return (
+    // NOTE: React compiler false positive: ref access in built-in event handler (RHF pattern)
+    // Fixed upstream: https://github.com/facebook/react/pull/35062
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-field">
         <label htmlFor="firstName" className="form-label">

@@ -41,3 +41,26 @@ export const updateSession = async (
 
   return data;
 };
+
+export const submitSession = async (
+  id: string,
+  formData: Partial<PatientFormData>
+) => {
+  const now = new Date().toISOString();
+
+  const { data, error } = await supabase
+    .from(TABLE)
+    .update({
+      form_data: formData,
+      status: 'submitted',
+      last_active_at: now,
+      submitted_at: now,
+    })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  return data;
+};
