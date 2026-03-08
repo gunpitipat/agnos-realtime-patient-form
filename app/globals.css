@@ -38,6 +38,12 @@
   .layout-container {
     @apply w-full max-w-lg px-6 lg:max-w-xl lg:px-8;
   }
+  .nav-link {
+    @apply hover:text-primary block border-b-2 border-transparent px-3 py-2 whitespace-nowrap transition-colors duration-200 ease-in-out;
+  }
+  .nav-link-active {
+    @apply border-border text-primary font-medium;
+  }
   .form {
     @apply flex flex-col gap-4 pb-14 lg:gap-6;
   }
