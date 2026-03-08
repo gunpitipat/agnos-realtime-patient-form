@@ -1,14 +1,13 @@
 import { supabase } from './supabase';
+import { PATIENT_SESSIONS_TABLE } from '@/constants/db';
 import type { PatientFormData } from '@/schemas/patient-form.schema';
 import type { PatientSession } from '@/types/patient-session';
-
-const TABLE = 'patient_sessions';
 
 export const createSession = async (
   formData: Partial<PatientFormData>
 ): Promise<PatientSession> => {
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PATIENT_SESSIONS_TABLE)
     .insert({
       form_data: formData,
       status: 'active',
@@ -27,7 +26,7 @@ export const updateSession = async (
   formData: Partial<PatientFormData>
 ): Promise<PatientSession> => {
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PATIENT_SESSIONS_TABLE)
     .update({
       form_data: formData,
       status: 'active',
@@ -49,7 +48,7 @@ export const submitSession = async (
   const now = new Date().toISOString();
 
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PATIENT_SESSIONS_TABLE)
     .update({
       form_data: formData,
       status: 'submitted',
@@ -69,13 +68,24 @@ export const markSessionInactive = async (
   id: string
 ): Promise<PatientSession> => {
   const { data, error } = await supabase
-    .from(TABLE)
+    .from(PATIENT_SESSIONS_TABLE)
     .update({
       status: 'inactive',
     })
     .eq('id', id)
     .select()
     .single();
+
+  if (error) throw error;
+
+  return data;
+};
+
+export const getPatientSessions = async (): Promise<PatientSession[]> => {
+  const { data, error } = await supabase
+    .from(PATIENT_SESSIONS_TABLE)
+    .select('*')
+    .order('created_at', { ascending: false });
 
   if (error) throw error;
 

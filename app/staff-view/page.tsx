@@ -1,3 +1,10 @@
+import StaffView from '@/components/staff/StaffView';
+
 export default function Page() {
-  return <main>Staff View</main>;
+  return (
+    <main className="flex flex-col items-center gap-4">
+      <h1 className="heading">Staff View</h1>
+      <StaffView />
+    </main>
+  );
 }
