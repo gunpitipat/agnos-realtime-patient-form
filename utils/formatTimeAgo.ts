@@ -1,3 +1,5 @@
+import { formatDate } from './formatDate';
+
 export const formatTimeAgo = (timestamp: string) => {
   const date = new Date(timestamp);
 
@@ -16,9 +18,5 @@ export const formatTimeAgo = (timestamp: string) => {
   const days = Math.floor(hours / 24);
   if (days < 7) return `${days}d ago`;
 
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-
-  return `${day}/${month}/${year}`;
+  return formatDate(date);
 };

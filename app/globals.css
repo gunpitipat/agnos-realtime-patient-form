@@ -56,6 +56,9 @@
   .form-input {
     @apply shadow-border border-border focus:border-primary rounded-sm border px-2.5 py-1 text-base shadow-sm transition-colors duration-150 ease-out outline-none lg:text-lg;
   }
+  .form-input-height {
+    @apply min-h-8.5 lg:min-h-9.5;
+  }
   .form-label-hint {
     @apply text-foreground/75 ml-1.5 text-sm font-normal lg:text-base;
   }

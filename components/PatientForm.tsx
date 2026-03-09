@@ -162,7 +162,7 @@ const PatientForm = () => {
         </label>
         <select
           id="gender"
-          className="form-input min-h-8.5 lg:min-h-9.5"
+          className="form-input form-input-height"
           {...register('gender')}
           aria-invalid={!!errors.gender}
           aria-describedby={errors.gender ? 'gender-error' : undefined}
