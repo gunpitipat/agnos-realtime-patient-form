@@ -11,6 +11,11 @@ const anuphan = Anuphan({
 export const metadata: Metadata = {
   title: 'Agnos Real-time Patient Form',
   description: 'A responsive real-time patient form and staff view system',
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
 };
 
 export default function RootLayout({
