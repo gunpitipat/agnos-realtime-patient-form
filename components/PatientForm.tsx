@@ -164,7 +164,7 @@ const PatientForm = () => {
         <input
           id="dateOfBirth"
           type="date"
-          className="form-input"
+          className="form-input form-input-height"
           {...register('dateOfBirth')}
           autoComplete="bday"
           aria-invalid={!!errors.dateOfBirth}

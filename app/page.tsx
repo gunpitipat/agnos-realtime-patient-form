@@ -5,7 +5,7 @@ export default function Home() {
     <main className="page-container">
       <h1 className="heading">Real-time Patient Form</h1>
 
-      <div className="layout-container flex flex-col gap-4">
+      <div className="layout-container flex flex-col gap-4 pb-14">
         <div className="text-base">
           <p>To test the real-time functionality:</p>
           <ol className="mt-2 ml-8 list-decimal space-y-2">
