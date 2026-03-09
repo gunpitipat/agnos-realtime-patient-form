@@ -8,6 +8,10 @@ A responsive patient input form and staff view system where staff members can mo
 
 - [Open Staff View ↗](https://agnos-realtime-patient-form.vercel.app/staff-view)
 
+## Preview
+
+[Watch Demo Video](https://agnos-realtime-patient-form.vercel.app/demo.mp4)
+
 ## Features
 
 - **Patient Input Form** — allows patients to enter their personal information
