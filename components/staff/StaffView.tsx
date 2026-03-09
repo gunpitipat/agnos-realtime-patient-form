@@ -9,6 +9,14 @@ const StaffView = () => {
 
   if (isLoading) return <Spinner />;
 
+  if (sessions.length === 0) {
+    return (
+      <section className="layout-container">
+        <p className="text-center">No patient sessions yet.</p>
+      </section>
+    );
+  }
+
   return (
     <section className="layout-container flex flex-col gap-4">
       {sessions.map((session) => (
