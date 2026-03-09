@@ -90,6 +90,10 @@ npm run dev
 
 Then open http://localhost:3000 in your browser.
 
+## Development Planning Documentation
+
+[Development Planning](docs/development-planning.md)
+
 ## Notes
 
 In some cases, real-time updates may take a moment to synchronize.

@@ -24,7 +24,7 @@ export const useRealtimePatientSession = (id: string) => {
 
     fetchSession();
 
-    // Subscribe realtime
+    // Subscribe real-time
     const channel = supabase
       .channel(`patient-session-${id}`)
       .on(
