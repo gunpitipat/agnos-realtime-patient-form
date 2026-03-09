@@ -105,3 +105,12 @@ export const getPatientSession = async (
 
   return data;
 };
+
+export const deleteSession = async (id: string): Promise<void> => {
+  const { error } = await supabase
+    .from(PATIENT_SESSIONS_TABLE)
+    .delete()
+    .eq('id', id);
+
+  if (error) throw error;
+};

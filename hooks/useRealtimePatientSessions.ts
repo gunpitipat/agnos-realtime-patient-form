@@ -35,7 +35,6 @@ export const useRealtimePatientSessions = () => {
           table: PATIENT_SESSIONS_TABLE,
         },
         (payload) => {
-          // Handle manual DELETE from Supabase (DELETE not used in app)
           if (payload.eventType === 'DELETE') {
             const oldSession = payload.old as PatientSession;
 

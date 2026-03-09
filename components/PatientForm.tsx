@@ -13,6 +13,7 @@ import {
   createSession,
   updateSession,
   submitSession,
+  deleteSession,
 } from '@/lib/patient-session';
 
 const PatientForm = () => {
@@ -27,6 +28,7 @@ const PatientForm = () => {
 
   const sessionIdRef = useRef<string | null>(null);
   const isCreatingRef = useRef(false);
+  const isSubmittedRef = useRef(false);
 
   const router = useRouter();
 
@@ -38,6 +40,8 @@ const PatientForm = () => {
 
     try {
       await submitSession(sessionId, data);
+      isSubmittedRef.current = true;
+
       alert('Form submitted');
       router.push('/');
     } catch (err) {
@@ -70,7 +74,13 @@ const PatientForm = () => {
       },
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+
+      if (sessionIdRef.current && !isSubmittedRef.current) {
+        deleteSession(sessionIdRef.current);
+      }
+    };
   }, [subscribe]);
 
   return (
