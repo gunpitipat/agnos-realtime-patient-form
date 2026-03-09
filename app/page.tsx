@@ -40,7 +40,10 @@ export default function Home() {
                 (typing, scrolling, mouse movement, touch, and tab visibility)
               </span>
             </li>
-            <li>Session removal when leaving the form before submitting.</li>
+            <li>
+              Session removal when leaving or refreshing the form before
+              submitting.
+            </li>
           </ul>
         </div>
       </div>

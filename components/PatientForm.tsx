@@ -50,6 +50,7 @@ const PatientForm = () => {
     }
   };
 
+  // Subscribe to form changes to create/update patient session
   useEffect(() => {
     const unsubscribe = subscribe({
       formState: {
@@ -74,14 +75,27 @@ const PatientForm = () => {
       },
     });
 
-    return () => {
-      unsubscribe();
+    return () => unsubscribe();
+  }, [subscribe]);
 
+  // Delete draft session when leaving or refreshing the page
+  // NOTE: When the browser tab is closed, async requests may be cancelled,
+  // so the draft session might not be deleted and could remain active.
+  // This could be improved in production with server-side cleanup.
+  useEffect(() => {
+    const handleCleanup = () => {
       if (sessionIdRef.current && !isSubmittedRef.current) {
         deleteSession(sessionIdRef.current);
       }
     };
-  }, [subscribe]);
+
+    window.addEventListener('beforeunload', handleCleanup);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleCleanup);
+      handleCleanup();
+    };
+  }, []);
 
   return (
     // NOTE: React compiler false positive: ref access in built-in event handler (RHF pattern)
